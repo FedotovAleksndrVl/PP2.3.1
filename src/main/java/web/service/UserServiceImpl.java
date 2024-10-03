@@ -1,40 +1,42 @@
 package web.service;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import web.dao.UserDao;
 import web.dao.UserDaoImpl;
 import web.model.User;
 import java.util.List;
 
-public class UserServiceImpl implements web.service.UserService {
-    private final UserDao userDaoHibernate = new UserDaoImpl();
+@Service
+public class UserServiceImpl implements UserService {
 
+    @Autowired
+    private UserDao userDaoHibernate;
+
+    @Transactional
     @Override
-    public void createUsersTable() {
-        userDaoHibernate.createUsersTable();
+    public void saveUser(User user) {
+        userDaoHibernate.saveUser(user);
     }
 
+    @Transactional
     @Override
-    public void dropUsersTable() {
-        userDaoHibernate.dropUsersTable();
+    public User getUserById(Long id) {
+        return userDaoHibernate.getUserById(id);
     }
 
-    @Override
-    public void saveUser(String name, String lastName, byte age) {
-        userDaoHibernate.saveUser(name,lastName, age);
-    }
-
+    @Transactional
     @Override
     public void removeUserById(long id) {
         userDaoHibernate.removeUserById(id);
     }
 
+    @Transactional
     @Override
     public List<User> getAllUsers() {
         return userDaoHibernate.getAllUsers();
     }
 
-    @Override
-    public void cleanUsersTable() {
-        userDaoHibernate.cleanUsersTable();
-    }
 }
 

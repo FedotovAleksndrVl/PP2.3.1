@@ -1,13 +1,28 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Users</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=cp1251">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User List</title>
 </head>
 <body>
-<div>
-    Privet!
-</div>
+<h2>User List</h2>
+<a href="/users/edit">Редактор пользователя</a>
+<table border="1">
+    <tr><th>ID</th><th>Name</th><th>Email</th></tr>
+    <tr th:each="user : ${users}">
+        <td th:text="${user.id}"></td>
+        <td th:text="${user.name}"></td>
+        <td th:text="${user.lastname}"></td>
+        <td th:text="${user.ege}"></td>
+
+        <td>
+            <a th:href="@{/users/{id}/edit(id=${user.id})}">Edit</a>
+            <form th:action="@{/users/{id}/delete(id=${user.id})}" method="post" style="display:inline;">
+                <input type="submit" value="Delete"/>
+            </form>
+        </td>
+    </tr>
+</table>
 </body>
 </html>
