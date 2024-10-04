@@ -3,13 +3,10 @@ package web.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
-import web.dao.UserDao;
 import web.model.User;
 import web.service.UserService;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -25,12 +22,23 @@ public class UserController {
 
     @GetMapping
     public String listUsers(Model model) {
-        //List<User> users = userService.getAllUsers();
+
         //model.addAttribute("users", users);
         return "users"; // Возвращаем имя HTML файла без расширения
     }
 
     @GetMapping("/new")
+    public String newUsers(Model model) {
+        User user = new User();
+        user.setName("qda");
+        user.setLastName("ada");
+        user.setAge((byte)25);
+        userService.saveUser(user);
+        return "edituser"; // Возвращаем имя HTML файла без расширения
+    }
+
+    /*
+    @GetMapping("/news")
     public String showForm(Model model) {
         model.addAttribute("user", new User());
         return "edituser"; // Возвращаем имя HTML файла без расширения
@@ -53,5 +61,5 @@ public class UserController {
     public String deleteUser(@PathVariable Long id) {
         userService.removeUserById(id);
         return "redirect:/users";
-    }
+    }*/
 }

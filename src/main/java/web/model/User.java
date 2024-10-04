@@ -1,9 +1,8 @@
 package web.model;
 import javax.persistence.*;
-import java.util.Objects;
 
 @Entity
-@Table(name = "USERS")
+@Table(name = "users")
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -58,18 +57,6 @@ public class User {
 
     public void setAge(Byte age) {
         this.age = age;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof User user)) return false;
-        return Objects.equals(id, user.id) && Objects.equals(name, user.name) && Objects.equals(lastName, user.lastName) && Objects.equals(age, user.age);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, name, lastName, age);
     }
 
     @Override

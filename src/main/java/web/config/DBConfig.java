@@ -3,12 +3,10 @@ package web.config;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.core.env.Environment;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
-import org.springframework.orm.jpa.JpaVendorAdapter;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
@@ -24,30 +22,15 @@ public class DBConfig {
     private final static String USERNAME = "admin";
     private final static String PASSWORDS = "admin";
     private final static String DRIVER = "com.mysql.cj.jdbc.Driver";
-    private final static String DIALECT = "org.hibernate.dialect.MySQLDialect";
+    private final static String DIALECT = "org.hibernate.dialect.MySQL5Dialect";
 
-    /*
-    private Environment env;
-
-
-    public DBConfig(Environment env) {
-        this.env = env;
-    }
-
-/*
-    @Bean
-    public static UserDao getUserDao() {
-        return new UserDaoImpl();
-    }*/
 
     @Bean
     public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
         LocalContainerEntityManagerFactoryBean em = new LocalContainerEntityManagerFactoryBean();
         em.setJpaVendorAdapter(new HibernateJpaVendorAdapter());
         em.setDataSource(dataSource());
-        //em.setPersistenceUnitName("JPAUsers");
-        em.setPackagesToScan("web.models");
-        //em.setJpaVendorAdapter(new HibernateJpaVendorAdapter());
+        em.setPackagesToScan("web.model");
         em.setJpaProperties(jpaProperties());
 
         return em;
@@ -63,18 +46,29 @@ public class DBConfig {
         return dataSource;
     }
 
-    @Bean
-    public JpaTransactionManager transactionManager() {
-        JpaTransactionManager transactionManager = new JpaTransactionManager();
-        transactionManager.setEntityManagerFactory(entityManagerFactory().getObject());
-        return transactionManager;
-    }
 
+    //public JpaTransactionManager transactionManager() {
+    //    JpaTransactionManager transactionManager = new JpaTransactionManager();
+    //    transactionManager.setEntityManagerFactory(entityManagerFactory().getObject());
+    //    return transactionManager;
+    //}
+
+
+/*
     @Bean
     public PlatformTransactionManager platformTransactionManager() {
         JpaTransactionManager jpaTransactionManager = new JpaTransactionManager(
                 entityManagerFactory().getObject());
         return jpaTransactionManager;
+    }*/
+
+    @Bean
+    public PlatformTransactionManager platformTransactionManager() {
+        JpaTransactionManager manager = new JpaTransactionManager();
+        manager.setEntityManagerFactory(entityManagerFactory().getObject());
+        manager.setDataSource(dataSource());
+
+        return manager;
     }
 
     private Properties jpaProperties() {
@@ -85,3 +79,5 @@ public class DBConfig {
         return properties;
     }
 }
+
+//
