@@ -46,27 +46,11 @@ public class DBConfig {
         return dataSource;
     }
 
-    //public JpaTransactionManager transactionManager() {
-    //    JpaTransactionManager transactionManager = new JpaTransactionManager();
-    //    transactionManager.setEntityManagerFactory(entityManagerFactory().getObject());
-    //    return transactionManager;
-    //}
-
-
-/*
-    @Bean
-    public PlatformTransactionManager platformTransactionManager() {
-        JpaTransactionManager jpaTransactionManager = new JpaTransactionManager(
-                entityManagerFactory().getObject());
-        return jpaTransactionManager;
-    }*/
-
     @Bean
     public PlatformTransactionManager platformTransactionManager() {
         JpaTransactionManager manager = new JpaTransactionManager();
         manager.setEntityManagerFactory(entityManagerFactory().getObject());
         manager.setDataSource(dataSource());
-
         return manager;
     }
 
@@ -79,5 +63,3 @@ public class DBConfig {
         return properties;
     }
 }
-
-//
