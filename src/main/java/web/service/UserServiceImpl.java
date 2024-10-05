@@ -35,5 +35,11 @@ public class UserServiceImpl implements UserService {
     public List<User> getAllUsers() {
         return userDaoHibernate.getAllUsers();
     }
+
+    @Override
+    @Transactional
+    public void updateUser(User user) {
+        userDaoHibernate.updateUser(user);
+    }
 }
 

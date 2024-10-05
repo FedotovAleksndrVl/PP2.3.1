@@ -46,7 +46,6 @@ public class DBConfig {
         return dataSource;
     }
 
-
     //public JpaTransactionManager transactionManager() {
     //    JpaTransactionManager transactionManager = new JpaTransactionManager();
     //    transactionManager.setEntityManagerFactory(entityManagerFactory().getObject());
@@ -76,6 +75,7 @@ public class DBConfig {
         properties.setProperty("hibernate.hbm2ddl.auto", "update");
         properties.setProperty("hibernate.show_sql", "true");
         properties.setProperty("hibernate.dialect", DIALECT);
+        properties.setProperty("encoding", "UTF-8");
         return properties;
     }
 }

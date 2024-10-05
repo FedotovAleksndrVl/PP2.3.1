@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>Edit</title>
+</head>
+<body>
+<h1>Редактор порльзователя</h1>
+
+<form th:method="POST" th:action="@{/users/edit}" th:object="${user}">
+    <table>
+        <input type="hidden" th:field="*{id}" id="id">
+        <tr><td>
+            <label for="name">Enter name: </label>
+        </td><td>
+            <input type="text" th:field="*{name}" id="name"/>
+        </td></tr>
+        <tr><td>
+            <label for="lastName">Enter surname: </label>
+        </td><td>
+            <input type="text" th:field="*{lastName}" id="lastName"/>
+        <td></td>
+        <tr><td>
+            <label for="age"> Enter age: </label>
+        </td><td>
+            <input type="text" th:field="*{age}" id="age"/>
+        <td></td></tr>
+    </table>
+    <input type="submit" value="Применить"/>
+</form>
+<form method="get" action="/users">
+    <input type="submit" value="Отмена"/>
+</form>
+
+</body>
+</html>

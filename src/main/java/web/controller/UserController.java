@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import web.model.User;
 import web.service.UserService;
 
+import java.util.Comparator;
 import java.util.List;
 
 @Controller
@@ -22,22 +23,51 @@ public class UserController {
 
     @GetMapping
     public String listUsers(Model model) {
-
-        //model.addAttribute("users", users);
-        return "users"; // Возвращаем имя HTML файла без расширения
+        List<User> users = userService.getAllUsers();
+        model.addAttribute("users", users);
+        return "users.html";
     }
 
-    @GetMapping("/new")
-    public String newUsers(Model model) {
-        User user = new User();
-        user.setName("qda");
-        user.setLastName("ada");
-        user.setAge((byte)25);
+    @GetMapping("/edit")
+    public String addUser(@ModelAttribute("user") User user, Model model) {
+        if(user.getId() != null) {
+            model.addAttribute("user", userService.getUserById(user.getId()));
+        }
+        return "edit.html";
+    }
+
+    @PostMapping("/edit")
+    public String save(@ModelAttribute("user") User user) {
+        if (user.getId() == null) {
+            userService.saveUser(user);
+        } else {
+            userService.updateUser(user);
+        }
+        return "redirect:/users";
+    }
+
+    @PostMapping("/del")
+    public String deleteUser(@ModelAttribute("user") User user) {
+            userService.removeUserById(user.getId());
+        return "redirect:/users";
+    }
+
+
+/*
+    @GetMapping(value = "/edit")
+    public String editUser(@ModelAttribute("user") User user, Model model) {
+
+        return "edit.html";
+    }
+
+
+    @PostMapping()
+    public String create(@ModelAttribute("user") User user) {
         userService.saveUser(user);
-        return "edituser"; // Возвращаем имя HTML файла без расширения
+        return "redirect:/users";
     }
 
-    /*
+
     @GetMapping("/news")
     public String showForm(Model model) {
         model.addAttribute("user", new User());
