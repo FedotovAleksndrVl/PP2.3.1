@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:form="">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -15,17 +15,20 @@
             <label for="name">Enter name: </label>
         </td><td>
             <input type="text" th:field="*{name}" id="name"/>
+            <input type="hidden" th:errors="*{name}"/>
         </td></tr>
         <tr><td>
             <label for="lastName">Enter surname: </label>
         </td><td>
             <input type="text" th:field="*{lastName}" id="lastName"/>
+            <input type="hidden" th:errors="*{lastName}"/>
         <td></td>
         <tr><td>
             <label for="age"> Enter age: </label>
         </td><td>
             <input type="text" th:field="*{age}" id="age"/>
-        <td></td></tr>
+            <input type="hidden" th:errors="*{age}"/>
+        </td></tr>
     </table>
     <input type="submit" value="Применить"/>
 </form>
