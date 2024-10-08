@@ -26,7 +26,7 @@ public class UserController {
     public String listUsers(Model model) {
         List<User> users = userService.getAllUsers();
         model.addAttribute("users", users);
-        return "users.html";
+        return "users";
     }
 
     @GetMapping("/edit")
@@ -34,13 +34,13 @@ public class UserController {
         if(user.getId() != null) {
             model.addAttribute("user", userService.getUserById(user.getId()));
         }
-        return "edit.html";
+        return "edit";
     }
 
     @PostMapping("/edit")
     public String save(@Valid @ModelAttribute("user") User user, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
-            return "edit.html";
+            return "edit";
         } else {
             if (user.getId() == null) {
                 userService.saveUser(user);
